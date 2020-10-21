@@ -11,7 +11,10 @@
                <button @click='onSubmit'> 登录</button>
             </m-form-item>
         </m-form>
+<<<<<<< HEAD
         <nodeTest></nodeTest>
+=======
+>>>>>>> a1af10abe18bb99683da8aad60b1408983865b5f
     </div>
 </template>
 
@@ -20,8 +23,11 @@
     import MFormItem from './components/form/MFormItem.vue'
     import MForm from './components/form/MForm.vue'
     import Notify from './components/Notify'
+<<<<<<< HEAD
 
     import nodeTest from './components/recursion/NodeTest'
+=======
+>>>>>>> a1af10abe18bb99683da8aad60b1408983865b5f
     export default {
         data() {
             return {
@@ -38,8 +44,12 @@
         components : {
             MInput,
             MFormItem,
+<<<<<<< HEAD
             MForm,
             nodeTest
+=======
+            MForm
+>>>>>>> a1af10abe18bb99683da8aad60b1408983865b5f
         },
         methods:{
           onSubmit(){
@@ -59,10 +69,18 @@
     }
 </script>
 <style>
+<<<<<<< HEAD
     /* #app {
         display: flex;
         justify-content: center;
 
     } */
+=======
+    #app {
+        display: flex;
+        justify-content: center;
+
+    }
+>>>>>>> a1af10abe18bb99683da8aad60b1408983865b5f
 
 </style>
