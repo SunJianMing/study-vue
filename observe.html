@@ -1,0 +1,44 @@
+<!--
+ * @Author: sjm
+ * @Date: 2020-10-23 11:02:25
+ * @LastEditors: sjm
+ * @LastEditTime: 2020-10-23 11:05:20
+ * @FilePath: /v1/observe.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        function defineReactive(obj,key,val){
+            Object.defineProperty(obj,key,{
+                get(){
+                    return val
+                },
+                set(newVal){
+                    if(newVal !== val){
+                        val = newVal
+                        update()
+                    }
+                    
+                }
+            })
+        }
+        function update(){
+            app.innerText = obj.foo
+        }
+        const obj = {}
+        defineReactive(obj,'foo','')
+        obj.foo = new Date().toLocaleTimeString()
+        setInterval(() => {
+            obj.foo = new Date().toLocaleTimeString()
+            
+        }, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!--
+ * @Author: sjm
+ * @Date: 2020-10-23 14:19:14
+ * @LastEditors: sjm
+ * @LastEditTime: 2020-10-24 00:00:21
+ * @FilePath: /v1/index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src='./src/watcher.js'></script>
+    <script src='./src/observe.js'></script>
+    <script src='./src/compiler.js'></script>
+    <script src='./src/mvue.js'></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{count}}</p>
+        <p m-text='count'></p>
+        <div @click='onAlert' m-html='desc'></div>
+        {{name}}
+    </div>
+    <script>
+        const app = new MVue({
+            el:"#app",
+            data:{
+                count:1,
+                desc:'<span style=\'color:red;\'>Hello</span>',
+                name:10
+            },
+            methods:{
+                onAlert(){
+                    console.log(this.onAlert)
+                    console.log(this.count++)
+                }
+            }
+        })
+        // setInterval(() => {
+        //     app.count++
+        //     app.name += 10
+        // }, 1000);
+       
+    </script>
+    
+</body>
+</html>
