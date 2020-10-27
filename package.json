@@ -1,25 +1,38 @@
 {
-  "name": "v1",
+  "name": "ssr",
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "dev":"cross-env NODE_ENV=development nodemon server/index.js --watch server",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build:client": "vue-cli-service build",
+    "build:server": "cross-env WEBPACK_TARGET=node vue-cli-service build",
+    "build": "npm run build:client && npm run build:server",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "vue": "^2.6.11"
+    "express": "^4.17.1",
+    "vue": "^2.6.11",
+    "vue-router": "^3.2.0",
+    "vue-server-renderer": "^2.6.12",
+    "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
-    "async-validator": "^3.4.0",
     "babel-eslint": "^10.1.0",
+    "browser-sync": "^2.26.13",
+    "chokidar": "^3.4.3",
     "core-js": "^3.6.5",
+    "cross-env": "^7.0.2",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
+    "npm": "^6.14.8",
+    "vue-template-compiler": "^2.6.11",
+    "webpack-node-externals": "^2.5.2"
   },
   "eslintConfig": {
     "root": true,
@@ -33,10 +46,7 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {
-      "vue/no-parsing-error": 0,
-      "no-unused-vars": 0
-    }
+    "rules": {}
   },
   "browserslist": [
     "> 1%",

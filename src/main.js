@@ -1,8 +1,33 @@
 import Vue from 'vue'
 import App from './App.vue'
-import create from './utils/create'
+import {createRouter} from './router'
+import {createStore} from './store'
+
 Vue.config.productionTip = false
-Vue.prototype.$create = create
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
+
+Vue.mixin({
+  beforeMount(){
+    if(this.$options.asyncData){
+      this.$options.asyncData({
+        store:this.$store,
+        route:this.$route
+      })
+    }
+  }
+})
+
+export function createApp(){
+  let router = createRouter()
+  let store = createStore()
+  const app = new Vue({
+    router,
+    store,
+    render: h => h(App)
+  })
+  return {
+    app,
+    router,
+    store
+  }
+}
+
