@@ -1,34 +1,36 @@
+const VueServerRenderer = require('vue-server-renderer/server-plugin')
+const VueClientRenderer = require('vue-server-renderer/client-plugin')
 const nodeExternals = require('webpack-node-externals')
-const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
-const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 const path = require('path')
-
-const WEBPACK_TARGET = process.env.WEBPACK_TARGET === 'node'
-const target = WEBPACK_TARGET ? 'server' : 'client'
+const merge = require('lodash.merge')
+const WEBPACK_NODE = process.env.WEBPACK_TAEGET === 'node'
+const target = WEBPACK_NODE ? 'server' : 'client'
 
 module.exports = {
     css:{
         extract:false
     },
-    outputDir:path.join(__dirname,'./dist/'+target),
-    configureWebpack:config=>({
-        entry:path.join(__dirname,`./src/entry-${target}.js`),
-        target:WEBPACK_TARGET?'node':'web',
-        devtool:'source-map',
+    outputDir:path.resolve(__dirname,'./dist/'+target),
+    configureWebpack:()=>({
+        entry:'./src/entry-'+target+'.js',
+        target:WEBPACK_NODE?"node":"web",
+        node:WEBPACK_NODE?undefined:false,
+        devtool:"source-map",
         output:{
-            libraryTarget:WEBPACK_TARGET?'commonjs2':undefined
+            libraryTarget:WEBPACK_NODE?"commonjs2":undefined
         },
-        node:WEBPACK_TARGET?undefined:false,
-        externals: WEBPACK_TARGET
-        ? nodeExternals({
+        externals:WEBPACK_NODE ? nodeExternals({
             allowlist:/\.css$/
-        })
-        : undefined,
-        plugins:[WEBPACK_TARGET ? new VueSSRServerPlugin():new VueSSRClientPlugin()]
+        }):undefined,
+        plugins:[WEBPACK_NODE?new VueServerRenderer() : new VueClientRenderer()]
     }),
     chainWebpack:config=>{
-        if(WEBPACK_TARGET){
+        if(WEBPACK_NODE){
             config.optimization.delete('splitChunks')
         }
+        config.module.rule('vue').use('vue-loader').tap(options=>{
+            merge(options,{optimizeSSR:false})
+        })
     }
+
 }

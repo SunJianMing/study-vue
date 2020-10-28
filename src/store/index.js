@@ -6,25 +6,24 @@ Vue.use(Vuex)
 export function createStore(){
   return new Vuex.Store({
     state: {
-      count:108
+      count:1
     },
     mutations: {
       add(state){
         state.count += 1
       },
-      init(state,payload){
-        state.count = payload
+      init(state,count){
+        state.count = count
       }
     },
     actions: {
       asyncAdd({commit}){
-        return new Promise((resolve)=>{
-          setTimeout(()=>{
+        return new Promise(resolve=>{
+          setTimeout(() => {
             commit('init',Math.random()*100)
             resolve()
-          },1000)
+          }, 1000);
         })
-       
       }
     },
     modules: {

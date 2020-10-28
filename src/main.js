@@ -4,7 +4,6 @@ import {createRouter} from './router'
 import {createStore} from './store'
 
 Vue.config.productionTip = false
-
 Vue.mixin({
   beforeMount(){
     if(this.$options.asyncData){
@@ -15,19 +14,14 @@ Vue.mixin({
     }
   }
 })
-
 export function createApp(){
-  let router = createRouter()
-  let store = createStore()
+  const router = createRouter()
+  const store = createStore()
   const app = new Vue({
     router,
     store,
     render: h => h(App)
   })
-  return {
-    app,
-    router,
-    store
-  }
+  return {app,router,store}
 }
 
